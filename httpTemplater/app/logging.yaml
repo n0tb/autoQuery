@@ -1,0 +1,46 @@
+version: 1
+disable_existing_loggers: False
+formatters:
+  simple:
+    format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: simple
+    stream: ext://sys.stdout
+  
+  app_file_handler:
+    class: logging.FileHandler
+    level: INFO
+    formatter: simple
+    filename: log/app.log
+  
+  access_file_handler:
+    class: logging.FileHandler
+    level: INFO
+    filename: log/access.log
+  
+  web_error_file_handler:
+    class: logging.FileHandler
+    level: ERROR
+    formatter: simple
+    filename: log/error.log
+
+loggers:
+  server.app:
+    level: INFO
+    handlers: [console, app_file_handler]
+  
+  aiohttp.access:
+    level: INFO
+    handlers: [console, access_file_handler]
+  
+  aiohttp.web:
+    level: INFO
+    handlers: [console, web_error_file_handler]
+
+  
+  
+  

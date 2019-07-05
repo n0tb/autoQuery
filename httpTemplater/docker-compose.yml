@@ -1,0 +1,36 @@
+version: '3'
+services:
+  templater:
+    build:
+      context: ./app
+    env_file: 
+      - ./app/conf.env
+    command: ["python","asyncHttpServer.py"]
+    environment:
+      - RHOST=redis
+    volumes:
+      - /var/log/autoQuery:/usr/src/app/log
+    networks:
+      - redis-net
+    ports:
+      - 8080:8080
+    depends_on:
+      - redis
+
+  redis:
+    build:
+      context: ./redis
+    command: ["redis-server", "/usr/local/etc/redis/redis.conf", "--appendonly", "yes"]
+    hostname: redis
+    networks:
+      - redis-net
+    volumes:
+      - redis_data:/data
+
+networks:
+  redis-net:
+
+volumes:
+  redis_data:
+    external: true
+

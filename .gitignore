@@ -1,0 +1,14 @@
+.vscode/*
+__pycache__/*
+scripts/*
+test/*
+*.py[code]
+*.sql
+*.log
+*.env
+*.html
+redis.txt
+redis.conf
+redis_db
+vue.html
+local_*
